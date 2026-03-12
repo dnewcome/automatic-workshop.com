@@ -22,7 +22,7 @@ services:
   - name: ghost
     dockerfile_path: Dockerfile
     github:
-      repo: YOUR_GITHUB_USERNAME/automatic-workshop.com
+      repo: dnewcome/automatic-workshop.com
       branch: main
       deploy_on_push: true
     http_port: 2368
