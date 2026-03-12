@@ -1,0 +1,131 @@
+# The Automatic Workshop — Digital Ocean App Platform Spec
+#
+# Pre-deployment checklist:
+#   1. Update github.repo below to YOUR_USERNAME/automatic-workshop.com
+#   2. Create a DO Spaces bucket (e.g. "automatic-workshop-media") in nyc3
+#   3. Generate a DO Spaces access key in API → Spaces Keys
+#   4. Set up an SMTP provider (Mailgun recommended — free tier works)
+#   5. Deploy, then set the SECRET env vars in DO console:
+#        storage__s3__accessKeyId
+#        storage__s3__secretAccessKey
+#        mail__options__host
+#        mail__options__auth__user
+#        mail__options__auth__pass
+#   6. Activate theme in Ghost Admin → Settings → Design → Theme
+#   7. Enable comments in Ghost Admin → Settings → Membership → Comments
+#   8. Point your DNS to DO and configure the domain in the DO console
+
+name: automatic-workshop
+region: nyc
+
+services:
+  - name: ghost
+    dockerfile_path: Dockerfile
+    github:
+      repo: YOUR_GITHUB_USERNAME/automatic-workshop.com
+      branch: main
+      deploy_on_push: true
+    http_port: 2368
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    health_check:
+      http_path: /
+      initial_delay_seconds: 60
+      period_seconds: 30
+      timeout_seconds: 15
+      failure_threshold: 10
+    envs:
+      - key: NODE_ENV
+        value: production
+        scope: RUN_TIME
+
+      # Site URL — update if using a different domain
+      - key: url
+        value: https://automaticworkshop.com
+        scope: RUN_TIME
+
+      # Database — auto-bound from the managed MySQL database below
+      - key: database__client
+        value: mysql
+        scope: RUN_TIME
+      - key: database__connection__host
+        value: ${db.HOSTNAME}
+        scope: RUN_TIME
+      - key: database__connection__port
+        value: ${db.PORT}
+        scope: RUN_TIME
+      - key: database__connection__user
+        value: ${db.USERNAME}
+        scope: RUN_TIME
+      - key: database__connection__password
+        value: ${db.PASSWORD}
+        scope: RUN_TIME
+      - key: database__connection__database
+        value: ${db.DATABASE}
+        scope: RUN_TIME
+      # DO managed MySQL uses SSL; disable strict cert validation
+      - key: database__connection__ssl__rejectUnauthorized
+        value: "false"
+        scope: RUN_TIME
+
+      # Storage — DO Spaces (S3-compatible)
+      # Update bucket name and region to match your Spaces bucket
+      - key: storage__active
+        value: s3
+        scope: RUN_TIME
+      - key: storage__s3__bucket
+        value: automatic-workshop-media
+        scope: RUN_TIME
+      - key: storage__s3__region
+        value: nyc3
+        scope: RUN_TIME
+      - key: storage__s3__endpoint
+        value: https://nyc3.digitaloceanspaces.com
+        scope: RUN_TIME
+      - key: storage__s3__forcePathStyle
+        value: "true"
+        scope: RUN_TIME
+      # Set these in the DO console after first deploy (API → Spaces Keys):
+      - key: storage__s3__accessKeyId
+        scope: RUN_TIME
+        type: SECRET
+      - key: storage__s3__secretAccessKey
+        scope: RUN_TIME
+        type: SECRET
+
+      # Email / Newsletter
+      # Recommended: Mailgun (https://mailgun.com) — free tier = 100 emails/day
+      # SMTP host for Mailgun: smtp.mailgun.org
+      # SMTP host for Postmark: smtp.postmarkapp.com
+      # SMTP host for SendGrid: smtp.sendgrid.net
+      - key: mail__transport
+        value: SMTP
+        scope: RUN_TIME
+      - key: mail__from
+        value: hello@automaticworkshop.com
+        scope: RUN_TIME
+      - key: mail__options__port
+        value: "587"
+        scope: RUN_TIME
+      # Set these in the DO console after first deploy:
+      - key: mail__options__host
+        scope: RUN_TIME
+        type: SECRET
+      - key: mail__options__auth__user
+        scope: RUN_TIME
+        type: SECRET
+      - key: mail__options__auth__pass
+        scope: RUN_TIME
+        type: SECRET
+
+databases:
+  - name: db
+    engine: MYSQL
+    version: "8"
+    size: db-s-1vcpu-1gb
+    num_nodes: 1
+
+domains:
+  - domain: automaticworkshop.com
+    type: PRIMARY
+    zone: automaticworkshop.com

@@ -1,0 +1,67 @@
+{{!< default}}
+
+{{#post}}
+<article class="gh-article {{post_class}}">
+
+    <header class="gh-article-header container-narrow">
+        {{#primary_tag}}
+        <a href="{{url}}" class="gh-article-tag">{{name}}</a>
+        {{/primary_tag}}
+
+        <h1 class="gh-article-title">{{title}}</h1>
+
+        <div class="gh-article-byline">
+            {{#primary_author}}
+            {{#if profile_image}}
+            <img class="gh-article-author-img" src="{{img_url profile_image size="xs"}}" alt="{{name}}" loading="lazy">
+            {{/if}}
+            <div class="gh-article-author-info">
+                <a href="{{url}}" class="gh-article-author-name">{{name}}</a>
+                <div class="gh-article-meta">
+                    <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMMM D, YYYY"}}</time>
+                    &middot; {{reading_time}}
+                </div>
+            </div>
+            {{/primary_author}}
+        </div>
+    </header>
+
+    {{#if feature_image}}
+    <div class="gh-article-image container">
+        <img
+            src="{{feature_image}}"
+            alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+    </div>
+    {{/if}}
+
+    <div class="gh-content">
+        {{content}}
+    </div>
+
+    <footer class="gh-article-footer">
+        {{> post-tags}}
+
+        {{#primary_author}}
+        <div class="gh-author-bio">
+            {{#if profile_image}}
+            <img class="gh-author-bio-img" src="{{img_url profile_image size="s"}}" alt="{{name}}" loading="lazy">
+            {{/if}}
+            <div>
+                <p class="gh-author-bio-name">
+                    <a href="{{url}}">{{name}}</a>
+                </p>
+                {{#if bio}}
+                <p class="gh-author-bio-text">{{bio}}</p>
+                {{/if}}
+            </div>
+        </div>
+        {{/primary_author}}
+    </footer>
+
+</article>
+
+<div class="gh-comments container-narrow">
+    {{comments}}
+</div>
+
+{{/post}}

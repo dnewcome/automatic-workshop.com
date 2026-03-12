@@ -1,0 +1,19 @@
+{{!< default}}
+
+{{! Paginated archive — used for /page/2/ etc. }}
+
+<section class="gh-section">
+    <div class="container">
+        <div class="gh-section-header">
+            <h2 class="gh-section-title">All Posts</h2>
+        </div>
+
+        <div class="gh-feed">
+            {{#foreach posts}}
+                {{> post-card}}
+            {{/foreach}}
+        </div>
+
+        {{> pagination}}
+    </div>
+</section>

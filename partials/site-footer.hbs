@@ -1,0 +1,18 @@
+{{> newsletter-signup}}
+
+<footer class="gh-foot">
+    <div class="container gh-foot-inner">
+
+        <a href="{{@site.url}}" class="gh-foot-logo">{{@site.title}}</a>
+
+        <nav class="gh-foot-nav" aria-label="Footer navigation">
+            {{navigation type="secondary"}}
+        </nav>
+
+        <p class="gh-foot-copy">
+            &copy; {{date format="YYYY"}} {{@site.title}} &mdash;
+            Published with <a href="https://ghost.org" target="_blank" rel="noopener noreferrer">Ghost</a>
+        </p>
+
+    </div>
+</footer>

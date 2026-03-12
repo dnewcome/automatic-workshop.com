@@ -1,0 +1,26 @@
+{{!< default}}
+
+{{#tag}}
+<header class="gh-tag-header">
+    <div class="container">
+        <h1 class="gh-tag-name">{{name}}</h1>
+        {{#if description}}
+        <p class="gh-tag-description">{{description}}</p>
+        {{/if}}
+        <p class="gh-tag-count">
+            {{plural ../pagination.total empty="No posts" singular="% post" plural="% posts"}}
+        </p>
+    </div>
+</header>
+{{/tag}}
+
+<section class="gh-section">
+    <div class="container">
+        <div class="gh-feed">
+            {{#foreach posts}}
+                {{> post-card}}
+            {{/foreach}}
+        </div>
+        {{> pagination}}
+    </div>
+</section>

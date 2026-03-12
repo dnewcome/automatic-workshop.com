@@ -1,0 +1,1422 @@
+/* =============================================================
+   THE AUTOMATIC WORKSHOP — Ghost Theme
+   screen.css
+   ============================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600&display=swap');
+
+/* =============================================================
+   1. CUSTOM PROPERTIES
+   ============================================================= */
+
+:root {
+  /* Colors */
+  --color-bg: #F9F8F6;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+  --color-text: #111827;
+  --color-text-muted: #6B7280;
+  --color-text-faint: #9CA3AF;
+  --color-accent: #1D4ED8;
+  --color-accent-hover: #1E40AF;
+  --color-accent-subtle: #EFF6FF;
+  --color-tag: #B45309;
+  --color-tag-bg: #FEF3C7;
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', Menlo, monospace;
+
+  /* Layout */
+  --container-width: 1200px;
+  --content-width: 720px;
+  --header-height: 64px;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* Transitions */
+  --transition: 150ms ease;
+}
+
+/* =============================================================
+   2. RESET & BASE
+   ============================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p { margin: 0 0 1em; }
+ul, ol { padding-left: 1.5rem; margin: 0 0 1em; }
+figure { margin: 0; }
+button { cursor: pointer; font-family: var(--font-sans); }
+
+/* =============================================================
+   3. LAYOUT
+   ============================================================= */
+
+.gh-viewport {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.gh-main {
+  flex: 1;
+  padding-top: var(--header-height);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* =============================================================
+   4. HEADER
+   ============================================================= */
+
+.gh-head {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow var(--transition);
+}
+
+.gh-head-scrolled {
+  box-shadow: var(--shadow-sm);
+}
+
+.gh-head-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  gap: 2rem;
+}
+
+/* Logo */
+.gh-head-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.gh-head-logo img {
+  height: 32px;
+  width: auto;
+}
+
+/* Navigation */
+.gh-head-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.gh-head-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gh-head-nav a {
+  display: block;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+}
+
+.gh-head-nav a:hover,
+.gh-head-nav .nav-current a {
+  color: var(--color-text);
+  background: var(--color-border-light);
+}
+
+/* Head actions */
+.gh-head-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-subscribe {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1.1rem;
+  background: var(--color-accent);
+  color: #fff !important;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+
+.btn-subscribe:hover {
+  background: var(--color-accent-hover);
+}
+
+.btn-account {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1.1rem;
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: border-color var(--transition);
+}
+
+.btn-account:hover {
+  border-color: var(--color-text);
+}
+
+/* Mobile burger */
+.gh-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+}
+
+.gh-burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.gh-burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.gh-burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.gh-burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile nav panel */
+.gh-head-mobile-nav {
+  display: none;
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-surface);
+  padding: 1rem 0;
+  overflow-y: auto;
+  z-index: 99;
+  border-top: 1px solid var(--color-border);
+}
+
+.gh-head-mobile-nav.is-open {
+  display: block;
+}
+
+.gh-head-mobile-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gh-head-mobile-nav li a {
+  display: block;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border-light);
+  transition: background var(--transition);
+}
+
+.gh-head-mobile-nav li a:hover {
+  background: var(--color-border-light);
+}
+
+.gh-head-mobile-nav .btn-subscribe-mobile {
+  display: block;
+  text-align: center;
+  margin: 1.5rem;
+  padding: 0.75rem;
+}
+
+.gh-nav-open {
+  overflow: hidden;
+}
+
+/* =============================================================
+   5. HOMEPAGE HERO
+   ============================================================= */
+
+.gh-hero {
+  padding: 4rem 0 3rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.gh-hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.gh-hero-inner.gh-hero-no-image {
+  grid-template-columns: 1fr;
+  max-width: 760px;
+}
+
+.gh-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.75rem;
+  background: var(--color-tag-bg);
+  color: var(--color-tag);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  margin-bottom: 1.25rem;
+  text-decoration: none;
+}
+
+.gh-hero-tag:hover {
+  background: #FDE68A;
+}
+
+.gh-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+  color: var(--color-text);
+}
+
+.gh-hero-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.gh-hero-title a:hover {
+  opacity: 0.85;
+}
+
+.gh-hero-excerpt {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin: 0 0 1.5rem;
+}
+
+.gh-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  flex-wrap: wrap;
+}
+
+.gh-hero-author-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.gh-hero-author-name {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.gh-hero-meta-sep {
+  color: var(--color-text-faint);
+}
+
+.gh-hero-image {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--color-border-light);
+}
+
+.gh-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* =============================================================
+   6. SECTION HEADERS
+   ============================================================= */
+
+.gh-section {
+  padding: 3rem 0;
+}
+
+.gh-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--color-text);
+}
+
+.gh-section-title {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* =============================================================
+   7. POST GRID
+   ============================================================= */
+
+.gh-feed {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+/* =============================================================
+   8. POST CARD
+   ============================================================= */
+
+.gh-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+
+.gh-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.gh-card-image {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-border-light);
+}
+
+.gh-card-image a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gh-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.gh-card:hover .gh-card-image img {
+  transform: scale(1.03);
+}
+
+.gh-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+}
+
+.gh-card-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.6rem;
+  background: var(--color-tag-bg);
+  color: var(--color-tag);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.75rem;
+  width: fit-content;
+  text-decoration: none;
+}
+
+.gh-card-tag:hover {
+  background: #FDE68A;
+}
+
+.gh-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.75rem;
+}
+
+.gh-card-title a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.gh-card-title a:hover {
+  color: var(--color-accent);
+}
+
+.gh-card-excerpt {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.gh-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border-light);
+  flex-wrap: wrap;
+}
+
+.gh-card-author-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.gh-card-meta-sep {
+  color: var(--color-text-faint);
+}
+
+/* =============================================================
+   9. NEWSLETTER SIGNUP
+   ============================================================= */
+
+.gh-newsletter {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.gh-newsletter-inner {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.gh-newsletter-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 0.75rem;
+}
+
+.gh-newsletter-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+.gh-newsletter-desc {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  margin: 0 0 2rem;
+  line-height: 1.6;
+}
+
+.gh-newsletter-form {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.gh-newsletter-form input[type="email"] {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  outline: none;
+  transition: border-color var(--transition);
+  color: var(--color-text);
+}
+
+.gh-newsletter-form input[type="email"]:focus {
+  border-color: var(--color-accent);
+}
+
+.gh-newsletter-form input[type="email"]::placeholder {
+  color: var(--color-text-faint);
+}
+
+.gh-newsletter-form button {
+  padding: 0.625rem 1.5rem;
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-full);
+  transition: background var(--transition);
+  white-space: nowrap;
+}
+
+.gh-newsletter-form button:hover {
+  background: var(--color-accent-hover);
+}
+
+.gh-newsletter-success {
+  display: none;
+  font-size: 0.9rem;
+  color: #059669;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.gh-newsletter-error {
+  display: none;
+  font-size: 0.875rem;
+  color: #DC2626;
+  margin-top: 0.75rem;
+}
+
+/* =============================================================
+   10. SINGLE POST
+   ============================================================= */
+
+.gh-article {
+  padding: 3rem 0 5rem;
+}
+
+/* Post header */
+.gh-article-header {
+  max-width: var(--content-width);
+  margin: 0 auto 2.5rem;
+  padding: 0 1.5rem;
+}
+
+.gh-article-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.75rem;
+  background: var(--color-tag-bg);
+  color: var(--color-tag);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  margin-bottom: 1.25rem;
+  text-decoration: none;
+}
+
+.gh-article-tag:hover {
+  background: #FDE68A;
+}
+
+.gh-article-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+
+.gh-article-byline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.gh-article-author-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.gh-article-author-name {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  margin-bottom: 2px;
+  font-size: 0.9rem;
+}
+
+.gh-article-author-name:hover {
+  color: var(--color-accent);
+}
+
+.gh-article-meta {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+/* Feature image */
+.gh-article-image {
+  max-width: 900px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.gh-article-image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+}
+
+/* Post content */
+.gh-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.gh-content > * + * {
+  margin-top: 1.5em;
+}
+
+.gh-content > *:first-child {
+  margin-top: 0;
+}
+
+.gh-content h2 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-top: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.gh-content h3 {
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.gh-content h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+.gh-content a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.gh-content a:hover {
+  color: var(--color-accent-hover);
+}
+
+.gh-content strong {
+  font-weight: 600;
+}
+
+.gh-content blockquote {
+  margin: 2rem 0;
+  padding: 1.25rem 2rem;
+  border-left: 4px solid var(--color-accent);
+  background: var(--color-accent-subtle);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  color: #374151;
+}
+
+.gh-content blockquote p {
+  margin: 0;
+  font-size: 1.05em;
+}
+
+.gh-content pre {
+  background: #1E293B;
+  color: #E2E8F0;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.gh-content code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-border-light);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+}
+
+.gh-content pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.gh-content hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+.gh-content img {
+  border-radius: var(--radius-md);
+  margin: 1.5rem auto;
+}
+
+.gh-content figcaption {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-faint);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.gh-content ul, .gh-content ol {
+  padding-left: 1.75rem;
+}
+
+.gh-content li {
+  margin-bottom: 0.4em;
+}
+
+/* Ghost card widths */
+.kg-width-wide {
+  max-width: 960px;
+  margin-left: calc(50% - 480px);
+}
+
+.kg-width-full {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+/* Post footer */
+.gh-article-footer {
+  max-width: var(--content-width);
+  margin: 3rem auto 0;
+  padding: 2rem 1.5rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Author bio */
+.gh-author-bio {
+  display: flex;
+  gap: 1.25rem;
+  padding: 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 2rem;
+}
+
+.gh-author-bio-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.gh-author-bio-name {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+}
+
+.gh-author-bio-name a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.gh-author-bio-name a:hover {
+  color: var(--color-accent);
+}
+
+.gh-author-bio-text {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Post tags */
+.gh-article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.gh-article-tag-link {
+  padding: 0.375rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.gh-article-tag-link:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+/* Comments */
+.gh-comments {
+  margin-top: 3rem;
+}
+
+/* Content CTA (paywall) */
+.gh-content-cta {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.gh-content-cta-box {
+  padding: 2.5rem 2rem;
+  background: linear-gradient(135deg, var(--color-accent-subtle), #FFFFFF);
+  border: 1px solid #BFDBFE;
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.gh-content-cta-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+}
+
+.gh-content-cta-desc {
+  color: var(--color-text-muted);
+  margin: 0 0 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.gh-content-cta-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-cta-primary {
+  padding: 0.625rem 2rem;
+  background: var(--color-accent);
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: var(--radius-full);
+  transition: background var(--transition);
+}
+
+.btn-cta-primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.btn-cta-secondary {
+  padding: 0.625rem 2rem;
+  color: var(--color-text-muted);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.btn-cta-secondary:hover {
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+/* =============================================================
+   11. TAG PAGE
+   ============================================================= */
+
+.gh-tag-header {
+  padding: 4rem 0 3rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.gh-tag-name {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.gh-tag-description {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.gh-tag-count {
+  font-size: 0.875rem;
+  color: var(--color-text-faint);
+  margin-top: 0.75rem;
+}
+
+/* =============================================================
+   12. AUTHOR PAGE
+   ============================================================= */
+
+.gh-author-header {
+  padding: 4rem 0 3rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.gh-author-header-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1.25rem;
+  border: 3px solid var(--color-surface);
+  box-shadow: var(--shadow-md);
+}
+
+.gh-author-header-name {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+
+.gh-author-header-bio {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* =============================================================
+   13. PAGINATION
+   ============================================================= */
+
+.gh-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 0 1rem;
+}
+
+.gh-pagination a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.625rem 1.5rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: border-color var(--transition), color var(--transition), background var(--transition);
+}
+
+.gh-pagination a:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-subtle);
+}
+
+.gh-pagination-info {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* =============================================================
+   14. FOOTER
+   ============================================================= */
+
+.gh-foot {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: 3rem 0;
+}
+
+.gh-foot-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.gh-foot-logo {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.gh-foot-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gh-foot-nav a {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.gh-foot-nav a:hover {
+  color: var(--color-text);
+}
+
+.gh-foot-copy {
+  font-size: 0.8rem;
+  color: var(--color-text-faint);
+}
+
+.gh-foot-copy a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* =============================================================
+   15. ERROR PAGES
+   ============================================================= */
+
+.gh-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: calc(80vh - var(--header-height));
+  padding: 3rem 1.5rem;
+}
+
+.gh-error-code {
+  font-family: var(--font-serif);
+  font-size: clamp(5rem, 12vw, 9rem);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-border);
+  margin: 0 0 1rem;
+}
+
+.gh-error-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.gh-error-desc {
+  color: var(--color-text-muted);
+  margin: 0 0 2rem;
+  font-size: 1.05rem;
+}
+
+.gh-error-link {
+  display: inline-flex;
+  padding: 0.625rem 2rem;
+  background: var(--color-accent);
+  color: #fff !important;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--transition);
+}
+
+.gh-error-link:hover {
+  background: var(--color-accent-hover);
+}
+
+/* =============================================================
+   16. PRIVATE PAGE
+   ============================================================= */
+
+.gh-private {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.gh-private-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.gh-private-desc {
+  color: var(--color-text-muted);
+  margin: 0 0 2rem;
+  font-size: 1rem;
+}
+
+.gh-private form {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 360px;
+  width: 100%;
+}
+
+.gh-private input[type="password"] {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.gh-private input[type="password"]:focus {
+  border-color: var(--color-accent);
+}
+
+.gh-private button[type="submit"] {
+  padding: 0.625rem 1.5rem;
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background var(--transition);
+}
+
+.gh-private button[type="submit"]:hover {
+  background: var(--color-accent-hover);
+}
+
+/* =============================================================
+   17. RESPONSIVE
+   ============================================================= */
+
+@media (max-width: 1024px) {
+  .gh-feed {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gh-hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .gh-hero-image {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 56px;
+  }
+
+  .gh-head-nav,
+  .gh-head-actions {
+    display: none;
+  }
+
+  .gh-burger {
+    display: flex;
+  }
+
+  .gh-feed {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .gh-newsletter-form {
+    flex-direction: column;
+  }
+
+  .gh-content {
+    font-size: 1rem;
+  }
+
+  .kg-width-wide {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  .gh-author-bio {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .gh-author-bio-img {
+    margin: 0 auto;
+  }
+
+  .gh-content-cta-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gh-private form {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .container,
+  .container-narrow {
+    padding: 0 1rem;
+  }
+
+  .gh-hero {
+    padding: 2.5rem 0 2rem;
+  }
+
+  .gh-section {
+    padding: 2rem 0;
+  }
+
+  .gh-article {
+    padding: 2rem 0 3rem;
+  }
+}

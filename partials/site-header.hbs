@@ -1,0 +1,40 @@
+<header class="gh-head">
+    <div class="container gh-head-inner">
+
+        <a class="gh-head-logo" href="{{@site.url}}">
+            {{#if @site.logo}}
+                <img src="{{@site.logo}}" alt="{{@site.title}}">
+            {{else}}
+                {{@site.title}}
+            {{/if}}
+        </a>
+
+        <nav class="gh-head-nav" aria-label="Main navigation">
+            {{navigation}}
+        </nav>
+
+        <div class="gh-head-actions">
+            {{#unless @member}}
+                <a href="#/portal/signup" data-portal="signup" class="btn-subscribe">Subscribe</a>
+            {{else}}
+                <a href="#/portal/account" data-portal="account" class="btn-account">Account</a>
+            {{/unless}}
+        </div>
+
+        <button class="gh-burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="gh-mobile-nav">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+
+    <div class="gh-head-mobile-nav" id="gh-mobile-nav" role="dialog" aria-label="Mobile navigation">
+        <div class="container">
+            {{navigation}}
+            {{#unless @member}}
+                <a href="#/portal/signup" data-portal="signup" class="btn-subscribe btn-subscribe-mobile">Subscribe free</a>
+            {{/unless}}
+        </div>
+    </div>
+</header>

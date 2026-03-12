@@ -1,0 +1,66 @@
+{{!< default}}
+
+{{! Homepage — hero from first post, then paginated feed }}
+
+{{#foreach posts}}
+    {{#if @first}}
+    <section class="gh-hero">
+        <div class="container">
+            <div class="gh-hero-inner{{#unless feature_image}} gh-hero-no-image{{/unless}}">
+                <div class="gh-hero-content">
+                    {{#primary_tag}}
+                    <a href="{{url}}" class="gh-hero-tag">{{name}}</a>
+                    {{/primary_tag}}
+
+                    <h1 class="gh-hero-title">
+                        <a href="{{url}}">{{title}}</a>
+                    </h1>
+
+                    {{#if excerpt}}
+                    <p class="gh-hero-excerpt">{{excerpt}}</p>
+                    {{/if}}
+
+                    <div class="gh-hero-meta">
+                        {{#primary_author}}
+                            {{#if profile_image}}
+                            <img class="gh-hero-author-img" src="{{img_url profile_image size="xxs"}}" alt="{{name}}" loading="lazy">
+                            {{/if}}
+                            <span class="gh-hero-author-name">{{name}}</span>
+                        {{/primary_author}}
+                        <span class="gh-hero-meta-sep">&middot;</span>
+                        <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D, YYYY"}}</time>
+                        {{#if reading_time}}
+                        <span class="gh-hero-meta-sep">&middot;</span>
+                        <span>{{reading_time}}</span>
+                        {{/if}}
+                    </div>
+                </div>
+
+                {{#if feature_image}}
+                <div class="gh-hero-image">
+                    <img src="{{img_url feature_image size="l"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+                </div>
+                {{/if}}
+            </div>
+        </div>
+    </section>
+    {{/if}}
+{{/foreach}}
+
+<section class="gh-section">
+    <div class="container">
+        <div class="gh-section-header">
+            <h2 class="gh-section-title">Latest</h2>
+        </div>
+
+        <div class="gh-feed">
+            {{#foreach posts}}
+                {{#unless @first}}
+                    {{> post-card}}
+                {{/unless}}
+            {{/foreach}}
+        </div>
+
+        {{> pagination}}
+    </div>
+</section>

@@ -1,0 +1,41 @@
+<article class="gh-card {{post_class}}">
+    {{#if feature_image}}
+    <div class="gh-card-image">
+        <a href="{{url}}" tabindex="-1" aria-hidden="true">
+            <img
+                src="{{img_url feature_image size="m"}}"
+                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                loading="lazy">
+        </a>
+    </div>
+    {{/if}}
+
+    <div class="gh-card-content">
+        {{#primary_tag}}
+        <a href="{{url}}" class="gh-card-tag">{{name}}</a>
+        {{/primary_tag}}
+
+        <h2 class="gh-card-title">
+            <a href="{{url}}">{{title}}</a>
+        </h2>
+
+        {{#if excerpt}}
+        <p class="gh-card-excerpt">{{excerpt}}</p>
+        {{/if}}
+
+        <div class="gh-card-meta">
+            {{#primary_author}}
+                {{#if profile_image}}
+                <img class="gh-card-author-img" src="{{img_url profile_image size="xxs"}}" alt="{{name}}" loading="lazy">
+                {{/if}}
+                <span>{{name}}</span>
+            {{/primary_author}}
+            <span class="gh-card-meta-sep">&middot;</span>
+            <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D, YYYY"}}</time>
+            {{#if reading_time}}
+            <span class="gh-card-meta-sep">&middot;</span>
+            <span>{{reading_time}}</span>
+            {{/if}}
+        </div>
+    </div>
+</article>

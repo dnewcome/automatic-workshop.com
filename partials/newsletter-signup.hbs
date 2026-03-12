@@ -1,0 +1,22 @@
+{{#unless @member}}
+<section class="gh-newsletter">
+    <div class="gh-newsletter-inner">
+        <p class="gh-newsletter-label">Newsletter</p>
+        <h2 class="gh-newsletter-title">Notes on the future of building</h2>
+        <p class="gh-newsletter-desc">AI, energy, and the shifting economics of creation — delivered to your inbox.</p>
+        <form class="gh-newsletter-form" data-members-form="subscribe">
+            <input
+                type="email"
+                data-members-email
+                placeholder="Your email address"
+                required
+                autocomplete="email">
+            <button type="submit">Subscribe</button>
+            <div class="gh-newsletter-success" data-members-success>
+                You're in. Check your inbox to confirm.
+            </div>
+            <div class="gh-newsletter-error" data-members-error></div>
+        </form>
+    </div>
+</section>
+{{/unless}}
