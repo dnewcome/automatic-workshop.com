@@ -10,6 +10,7 @@ RUN npm init -y \
 
 WORKDIR /var/lib/ghost
 RUN chown -R node:node content/adapters \
+    && mkdir -p content/themes \
     && chown -R node:node content/themes
 
 # Copy the custom theme into the image
