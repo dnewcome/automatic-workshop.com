@@ -9,7 +9,8 @@ RUN npm init -y \
     && printf 'module.exports = require("ghost-storage-adapter-s3");\n' > index.js
 
 WORKDIR /var/lib/ghost
-RUN chown -R node:node content/adapters
+RUN chown -R node:node content/adapters \
+    && chown -R node:node content/themes
 
 # Copy the custom theme into the image
 COPY --chown=node:node . content/themes/automatic-workshop
